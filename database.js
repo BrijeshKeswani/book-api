@@ -6,9 +6,19 @@ const books = [
     language : "eng" ,
     numPage : 200 ,
     authors : [1,2] ,
-    publications : [1] ,
+    publications : [1,2] ,
     category : ["consious mind" , "subconsious mind" , "self-help books"]
  },
+ { 
+  ISBN : "12345None" ,
+  title : "Thinking big" ,
+  pubDate : "2021-04-10" ,
+  language : "eng" ,
+  numPage : 200 ,
+  authors : [1,2] ,
+  publications : [1,2] ,
+  category : ["consious mind" , "subconsious mind" , "self-help books"]
+},
 ];
 
 const authors = [
@@ -29,12 +39,12 @@ const publications = [
     {
      id :1 ,
      name : "writex" , 
-     books : "12345Book" ,
+     books : ["12345Book"] ,
     } ,
     {
       id :2 ,
       name : "Books corner" , 
-      books : "Rich Dad Poor Dad" ,
+      books : [] ,
      } ,
 ];
 

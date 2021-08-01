@@ -216,11 +216,127 @@ Access          PUBLIC
 Parameter       NONE
 Methods         POST
 */
-booky.post("author/add" , (req, res) => {
+booky.post("/author/add" , (req, res) => {
     const {newAuthor} = req.body;
     database.authors.push(newAuthor);
-    return res.json({authors : database.authors})
+    return res.json({authors : database.authors});
+});
 
-})
+
+/*
+Route           /publication/add
+Description     add new publication
+Access          PUBLIC
+Parameter       NONE
+Methods         POST
+*/
+booky.post("/publication/add" , (req, res) => {
+    const {newPublication} = req.body;
+    database.publications.push(newPublication);
+    return res.json({publications : database.publications});
+});
+
+/*
+Route           /book/add
+Description     update book title 
+Access          PUBLIC
+Parameter       isbn
+Methods         PUT
+*/
+booky.put("/book/update/title/:isbn" , (req,res) => {
+ database.books.forEach((book) => {
+     if(book.ISBN === req.params.isbn) {
+         book.title = req.body.newBookTitle;
+         return;
+     }
+ });
+ return res.json({books : database.books});
+});
+
+/*q
+Route           /book/add/author/:isbn/:authorId
+Description     update book author 
+Access          PUBLIC
+Parameter       isbn
+Methods         PUT
+*/
+booky.put("/book/update/author/:isbn/:authorId" , (req,res) => {
+    //update book database
+    database.books.forEach((book) => {
+        if(book.ISBN === req.params.isbn){
+            return book.authors.push(parseInt(req.params.authorId));
+        };
+
+    });
+    //update author database
+    database.authors.forEach((author) => {
+        if(author.id === parseInt(req.params.authorId)){
+            return author.books.push(req.params.isbn); 
+        };
+    });
+    return res.json({books : database.books , authors : database.authors});
+});
+
+
+
+/*
+Route           /author/update/:authorId
+Description     update book author 
+Access          PUBLIC
+Parameter       id,name
+Methods         PUT
+*/
+booky.put("/author/update/:authorId" , (req,res) => {
+    database.authors.forEach((author) => {
+        if(author.id === parseInt(req.params.authorId)){
+            author.name = req.body.newAuthorName;
+         return;
+        }
+    });
+    return res.json({author : database.authors });
+ });
+
+ /*
+Route           /publication/update/:publicationId
+Description     update publcation name
+Access          PUBLIC
+Parameter       id , name
+Methods         PUT
+*/
+booky.put("/publication/update/:publicationId" , (req,res) => {
+    database.publications.forEach((publication) => {
+        if(publication.id === parseInt(req.params.publicationId)){
+            publication.name = req.body.newPublicationName;
+         return;
+        }
+    });
+    return res.json({publciations : database.publications });
+ });
+
+  /*
+Route           /publication/update/:publicationId
+Description     update/add books to the publcation 
+Access          PUBLIC
+Parameter       isbn
+Methods         PUT
+*/
+booky.put("/publication/update/book/:isbn" , (req,res) => { 
+    //update the publication database
+    database.publications.forEach((publication) => {
+        if(publication.id === req.body.pubId) {
+            return publication.books.push(req.params.isbn);
+        }
+    });
+    //update the book database
+    database.books.forEach((book) => {
+        if(book.ISBN === req.params.isbn) {
+            book.publication = req.body.pubId;
+            return ;
+        }
+    });
+    
+return res.json({books : database.books , publications : database.publications });
+});
+
 // to create a local host server
 booky.listen(3000 , () => console.log("Hey the server is running"));  

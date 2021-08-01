@@ -26,12 +26,12 @@
 
   //(POST METHOD APIs) <=====
  //if we want to add something then we use POST api..                  (POST METHOD APIs) 
-  // add a new book 
+  // add a new book                              (done)
 
   //(PUT METHOD APIs) <====
 // if we want to update or add something then we use PUT api           (PUT METHOD APIs)
-  //update a book title
-  //update /  add a author
+  //update a book title                           (done)
+  //update/add a author                           (done)
 
   //(DELETE METHOD APIs)  <====
 // if we want to delete  something then we use DELETE api           (DELETE METHOD APIs)
@@ -53,11 +53,11 @@
 
   //(POST METHOD APIs) <=====
  //if we want to add something then we use POST api..                  (POST METHOD APIs) 
-  // add a new author 
+  // add a new author                           (done)
 
   //(PUT METHOD APIs) <====
 // if we want to update or add something then we use PUT api           (PUT METHOD APIs)
-  //update a author name 
+  //update a author name                         (done)
   
   //(DELETE METHOD APIs)  <====
 // if we want to delete  something then we use DELETE api           (DELETE METHOD APIs)
@@ -77,16 +77,16 @@
 
  //(POST METHOD APIs) <=====
  //if we want to add something then we use POST api..                  (POST METHOD APIs) 
-  // add a new publication 
+  // add a new publication                       (done)
 
   //(PUT METHOD APIs) <====
 // if we want to update or add something then we use PUT api           (PUT METHOD APIs)
- //update a publication name
+ //update a publication name                     (done)
  // update / add books to publications 
 
   //(DELETE METHOD APIs)  <====
 // if we want to delete  something then we use DELETE api           (DELETE METHOD APIs)
    // delete a publication
-   //delete a book from publcation
+   //delete a book from publcation 
 
 
