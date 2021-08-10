@@ -35,8 +35,8 @@
 
   //(DELETE METHOD APIs)  <====
 // if we want to delete  something then we use DELETE api           (DELETE METHOD APIs)
-   // delete a book 
-   // delete an author 
+   // delete a book                                (done)
+   // delete an author from a book                 (done)         
 
 
 
@@ -61,7 +61,7 @@
   
   //(DELETE METHOD APIs)  <====
 // if we want to delete  something then we use DELETE api           (DELETE METHOD APIs)
-   // delete an author 
+   // delete an author                           (done)
     
 
 
@@ -82,11 +82,11 @@
   //(PUT METHOD APIs) <====
 // if we want to update or add something then we use PUT api           (PUT METHOD APIs)
  //update a publication name                     (done)
- // update / add books to publications 
+ // update / add books to publications            (done)
 
   //(DELETE METHOD APIs)  <====
 // if we want to delete  something then we use DELETE api           (DELETE METHOD APIs)
-   // delete a publication
+   // delete a publication                        (done)
    //delete a book from publcation 
 
 

@@ -1,4 +1,7 @@
+require("dotenv").config();
+//frame work
 const express = require("express");
+const mongoose = require("mongoose");
 
 
 // Database 
@@ -9,6 +12,16 @@ const booky = express();
 
 //configuration 
 booky.use(express.json());
+
+//establish a connectrion with database (mongodb)
+mongoose.connect( process.env.MONGO_URL , 
+{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+      
+}).then(() => console.log("connection established !!!!! :> "));
 
 /*       (these are comments to describe an API created below) (This Apis are of books section in database,js )
 Route          /
@@ -338,5 +351,130 @@ booky.put("/publication/update/book/:isbn" , (req,res) => {
 return res.json({books : database.books , publications : database.publications });
 });
 
+  /*
+Route           /delete/book/:isbn
+Description     update/add books to the publcation 
+Access          PUBLIC
+Parameter       isbn
+Methods         DELETE
+*/
+booky.delete("/delete/book/:isbn" , (req,res) => {
+    const updateBookDatabase = database.books.filter(
+        (book) => book.ISBN !== req.params.isbn 
+        );
+        database.books = updateBookDatabase;
+        return res.json({books : database.books});
+});
+
+ /*
+Route           /delete/book/:isbn/:authorId
+Description     delete an author from a book 
+Access          PUBLIC
+Parameter       isbn , author id
+Methods         DELETE
+*/
+booky.delete("/book/delete/author/:isbn/:authorId" , (req,res) => {
+    //update the book database
+    database.books.forEach((book) => {
+        if(book.ISBN === req.params.isbn) {
+            const newAuthorList = book.authors.filter( 
+        (author) => author !== parseInt(req.params.authorId)
+        );
+        book.authors = newAuthorList;
+        return;
+        }
+    });
+
+    //update the author database
+    database.authors.forEach((author) => {
+        if(author.id === parseInt(req.params.authorId)) {
+           const newBookList = author.books.filter(
+               (book) => book !== req.params.isbn
+           );
+           author.books = newBookList;
+           return;
+        }
+    });
+    
+ return res.json({
+    message : "the author was deleted sucessfully :>" , 
+    books : database.books ,
+    author : database.authors 
+    }); 
+  });
+
+   /*
+Route           /delete/author/:authorId
+Description     delete an author  
+Access          PUBLIC
+Parameter       author id
+Methods         DELETE
+*/
+booky.delete("/delete/author/:authorId" , (req,res) => {
+    const updateAuthorDatabase = database.authors.filter(
+        (author) => author.id !== parseInt(req.params.authorId) 
+    );
+    database.authors = updateAuthorDatabase;
+    return res.json({authors : database.authors});
+});
+
+
+/*
+Route           /delete/publications/:pubId
+Description     delete a publications
+Access          PUBLIC
+Parameter       pubId
+Methods         DELETE
+*/
+booky.delete("/delete/publications/:pubId" , (req,res) => {
+    const updatePublicationDatabase = database.publications.filter(
+        (publication) => publication.id !== parseInt(req.params.pubId)
+        );
+        database.publications = updatePublicationDatabase;
+        return res.json({message : "Publication deleted successfully",
+                         publications : database.publications
+        });
+});
+
+/*
+Route           /delete/publications/:isbn/:pubId
+Description     delete a publications
+Access          PUBLIC
+Parameter       pubId
+Methods         DELETE
+*/
+booky.delete("/book/delete/publications/:isbn/:pubId" , (req,res) => {
+    //update book database 
+    database.books.forEach((book) => {
+        if(book.ISBN === req.params.isbn) {
+             const newPublicationsList = database.publications.filter(
+                 (publication) => publication !== parseInt(req.params.pubId)
+             );
+             book.publications = newPublicationsList;
+             return;
+        }
+    });
+
+    //update publication database
+    database.publications.forEach((publication) => {
+        if(publication.id === parseInt(req.params.pubId)) {
+           const newBookList = publication.books.filter(
+               (book) => book !== req.params.isbn
+           );
+           publication.books = newBookList;
+           return;
+        }
+    });
+    
+});
+
 // to create a local host server
 booky.listen(3000 , () => console.log("Hey the server is running"));  
+
+//to set up connectivity of an app with mmongodb --------------> 
+// we need someone (an agent/mediator)  who can :-
+//  talk to MongoDb in whoch MongoDb understands =>   **** (* depicts language which we dont know and this language is understood by MongoDb)
+//  talk to us in the way we understand => JavaScript
+
+
+// mongoose 

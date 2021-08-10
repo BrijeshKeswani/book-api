@@ -1,4 +1,4 @@
-const books = [
+let books = [
  { 
     ISBN : "12345Book" ,
     title : "The power of subconsious mind" ,
@@ -21,7 +21,7 @@ const books = [
 },
 ];
 
-const authors = [
+let authors = [
     {
      id : 1 ,
      name : "Joseph Murphy" ,
@@ -31,21 +31,19 @@ const authors = [
     {
       id : 2 ,
       name : "Brijesh" ,
-      books : ["12345Book"] ,
+      books : ["12345None"] ,
     },
 ];
 
-const publications = [
+let publications = [
     {
-     id :1 ,
-     name : "writex" , 
-     books : ["12345Book"] ,
+    
     } ,
     {
       id :2 ,
       name : "Books corner" , 
       books : [] ,
-     } ,
+     } , 
 ];
 
 module.exports = {books , authors , publications} ;
